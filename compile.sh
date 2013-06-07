@@ -1,1 +1,1 @@
-coffee -c -o js/ coffee/*
+coffee -cj js/app.js coffee/*

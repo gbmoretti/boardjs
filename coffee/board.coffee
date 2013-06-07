@@ -8,20 +8,32 @@ class Board
   clean: ->
     for peca in @pecas
       peca.element.remove()
+  
+  draw: ->
+    @drawPieces()
+  
+  onClick: (callback) ->
+    @clickCallback = callback
     
+  clickTrigger: (id,coord) ->    
+    peca = @searchPiece(coord)    
+    @clickCallback.call(@,coord,peca) unless @clickCallback is undefined
+  
   drawBorder: ->
     border = @size + (@size/5)
     for x in [1..@width]
       for y in [1..@height]
         square = @paper.rect(x*border,y*border,@size,@size)
         square.attr(
-          fill: "#EDF"
+          fill: "#3D3"
           stroke: "#000"
         )
-        square.data("coord",x+","+y)
+        square.data("coord-x",x)
+        square.data("coord-y",y)
+        that = @
         square.click (e) ->
-          console.log this.data("coord")
-          console.log this.id
+          coord = {x: this.data("coord-x"), y: this.data("coord-y")}
+          that.clickTrigger(this.id,coord)
 
   drawPieces: ->
     for peca in @pecas
@@ -34,3 +46,12 @@ class Board
       
       peca.draw()
       return peca
+      
+  searchPiece: (coord) ->      
+    peca = null
+    for p in @pecas
+      if p.x == coord.x && p.y == coord.y
+        peca = p
+        break
+    peca 
+  

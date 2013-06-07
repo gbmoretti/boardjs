@@ -1,6 +1,7 @@
 class Piece
   constructor: (@x,@y,@cor,@paper) ->
     @element = null
+  
   draw: ->
     id = ((@x-1)*10)+(@y-1) #formula para pegar o id
     square = @paper.getById(id)
