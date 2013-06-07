@@ -34,11 +34,3 @@ class Board
       
       peca.draw()
       return peca
-      
-$(document).ready -> 
-  tabuleiro = new Board(25,10)
-    
-  p1 = tabuleiro.newPiece(1,1,"#E3E")
-  p2 = tabuleiro.newPiece(3,3,"#3E3")
-  
-  tabuleiro.drawPieces()
