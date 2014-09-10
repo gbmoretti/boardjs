@@ -7,10 +7,16 @@ A board game engine.
 Installation
 ============
 
-To run this application needs:
-* Ruby and Thin to run the web-server
-* Coffeescript to compile the code into a JS file
+* `nvm use`
+* `npm install`
+* `bower install`
+
+Running server
+==============
+
+* `grunt`
 
 To-do list
 ==========
+
 Almost everything
