@@ -1,0 +1,20 @@
+{
+  "name": "boardjs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gbmoretti/boardjs",
+  "authors": [
+    "Guilherme Moretti <guilhermebmoretti@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

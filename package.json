@@ -1,0 +1,15 @@
+{
+  "name": "boardjs",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-coffeeify": "latest",
+    "grunt-contrib-coffee": "latest",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-http-server": "latest"
+  },
+  "dependencies": {
+    "jquery-browserify": "^1.8.1",
+    "raphael-browserify": "^2.1.0"
+  }
+}
