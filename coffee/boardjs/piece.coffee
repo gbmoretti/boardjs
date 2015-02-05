@@ -4,7 +4,6 @@ class Piece
 
   draw: ->
     id = ((@x-1)*10)+(@y-1) #formula para pegar o id
-    console.log(id)
     square = @paper.getById(id)
     bbox = square.getBBox()
     x = bbox.x + (bbox.width/2)
@@ -18,8 +17,9 @@ class Piece
     )
 
     piece.click (e) =>
-      @clickCallback(e,@) if @clickCallback isnt undefined
-      @tile.click() if @tile isnt undefined
+      data = {event: e, source: @}
+      @clickCallback(@, data) if @clickCallback isnt undefined
+      @tile.click(e,@)
 
     @element = piece
 

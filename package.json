@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "jquery-browserify": "^1.8.1",
-    "raphael-browserify": "^2.1.0"
+    "raphael-browserify": "^2.1.0",
+    "combokeys": "^2.3.0"
   }
 }

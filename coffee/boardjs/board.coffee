@@ -6,13 +6,12 @@ class Board
   constructor: (@size,@width,@height = null) ->
     @height = @heigth || @width
     @paper = Raphael(1, 1, 800, 600)
-    @pecas = new Array()
+    @pieces = new Array()
     @tiles = new Array()
-    @drawBorder()
+    @createTiles()
 
   clean: ->
-    for peca in @pecas
-      peca.element.remove()
+    @pieces = new Array()
 
   draw: ->
     @drawTiles()
@@ -21,18 +20,18 @@ class Board
   onClick: (callback) ->
     @clickCallback = callback
 
-  clickTrigger: (id,coord) ->
-    peca = @searchPiece(coord)
-    @clickCallback.call(@,coord,peca) unless @clickCallback is undefined
+  click: (event,source) ->
+    data = {event: event, source: source}
+    @clickCallback.call(@,data) unless @clickCallback is undefined
 
-  drawBorder: ->
+  createTiles: ->
     for x in [1..@width]
       for y in [1..@height]
-        tile = new Tile(x,y,@size,@paper,'#3D3','#000')
+        tile = new Tile(x,y,@size,@paper,@,'#fcef5e','#000')
         @tiles.push tile
 
   drawPieces: ->
-    for peca in @pecas
+    for peca in @pieces
       peca.draw()
 
 
@@ -42,11 +41,11 @@ class Board
 
   newPiece: (x,y,cor) ->
     if @width >= x && @height
-      console.log(@paper)
-      peca = new Piece(x,y,cor,@paper,@searchTile(x,y))
-      @pecas.push peca
+      tile = @searchTile({x: x, y: y})
+      peca = new Piece(x,y,cor,@paper,tile)
+      @pieces.push peca
 
-      peca.draw()
+      #peca.draw()
       return peca
 
   searchPiece: (coord) ->
