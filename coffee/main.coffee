@@ -3,11 +3,7 @@ $ = require 'jquery-browserify'
 Module = require './misc/module.coffee'
 Combokeys = require 'combokeys'
 
-#boardjs
-Board = require './boardjs/board.coffee'
-
 #game
-Coord = require './coord.coffee'
 Game = require './game.coffee'
 Player = require './player.coffee'
 Foe = require './foe.coffee'
