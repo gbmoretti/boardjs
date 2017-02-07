@@ -9,8 +9,9 @@ class Player extends Module
   @include Drawable
   @include Tickable
 
-  constructor: ->
+  constructor: (@game) ->
     @pos = new Coord(1,1)
     @color = '#E33'
+    @action = null
 
 module.exports = Player

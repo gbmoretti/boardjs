@@ -1,24 +1,17 @@
 Coord = require('../coord.coffee')
+MoveActions = require('../move_actions')
 
 MovingEntity =
-  move_up: ->
-    move = new Coord(0,-1)
-    next = @pos.add(move)
-    @pos = next unless next.y == 0
+  moveUp: ->
+    @action = new MoveActions.up()
 
-  move_down: ->
-    move = new Coord(0,1)
-    next = @pos.add(move)
-    @pos = next unless next.y == 11
+  moveDown: ->
+    @action = new MoveActions.down()
 
-  move_right: ->
-    move = new Coord(1,0)
-    next = @pos.add(move)
-    @pos = next unless next.x == 11
+  moveRight: ->
+    @action = new MoveActions.right()
 
-  move_left: ->
-    move = new Coord(-1,0)
-    next = @pos.add(move)
-    @pos = next unless next.x == 0
+  moveLeft: ->
+    @action = new MoveActions.left()
 
 module.exports = MovingEntity

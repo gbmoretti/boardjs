@@ -7,14 +7,13 @@ class Foe extends Module
   @include MovingEntity
   @include Drawable
 
-  constructor: ->
-    @pos = new Coord(10,10)
+  constructor: (@game) ->
+    @pos = new Coord(2,2)
     @color = '#3E3'
-    @moves = ['move_up', 'move_down', 'move_left', 'move_right']
+    @moves = ['moveUp', 'moveDown', 'moveLeft', 'moveRight']
 
   tick: ->
-    rand_action = @moves[Math.floor(Math.random()*@moves.length)]
-    console.log rand_action
-    @[rand_action]()
+    randAction = @moves[Math.floor(Math.random()*@moves.length)]
+    @[randAction]()
 
 module.exports = Foe

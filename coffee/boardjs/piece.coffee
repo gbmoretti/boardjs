@@ -1,33 +1,29 @@
 class Piece
-  constructor: (@x,@y,@cor,@paper,@tile) ->
+  constructor: (@x,@y,@color,@paper,@tile,@size) ->
     @element = null
 
+  clean: ->
+    @element.remove()
+
   draw: ->
-    id = ((@x-1)*10)+(@y-1) #formula para pegar o id
+    id = @x << 16 & 0xffff0000 | @y & 0x0000ffff #formula para pegar o id
     square = @paper.getById(id)
+
+    unless square
+      console.log "Cannot find #{id}"
+      return false
+
     bbox = square.getBBox()
     x = bbox.x + (bbox.width/2)
     y = bbox.y + (bbox.height/2)
 
-    piece = @paper.circle(x,y,8)
+    piece = @paper.circle(x,y,@size)
 
     piece.attr(
-      fill: @cor
+      fill: @color
       stroke: "#000"
     )
 
-    piece.click (e) =>
-      data = {event: e, source: @}
-      @clickCallback(@, data) if @clickCallback isnt undefined
-      @tile.click(e,@)
-
     @element = piece
-
-  onClick: (callback) ->
-    @clickCallback = callback
-
-  move: (x,y) ->
-    @x += x
-    @y += y
 
 module.exports = Piece

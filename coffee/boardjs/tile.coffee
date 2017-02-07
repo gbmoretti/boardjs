@@ -4,26 +4,11 @@ class Tile
 
   draw: (fill,stroke) ->
     square = @paper.rect(@x*@border,@y*@border,@size,@size)
+    id = @x << 16 & 0xffff0000 | @y & 0x0000ffff
     square.attr(
       fill: @fill
-      stroke: @stoke
-      id: ((@x-1)*10)+(@y-1)
+      stroke: @stroke
     )
-
-    square.data("coord-x",@x)
-    square.data("coord-y",@y)
-
-    that = @
-    square.click (e) ->
-      coord = {x: this.data("coord-x"), y: this.data("coord-y")}
-      that.click(e,that)
-
-  click: (event,source) ->
-    data = {event: event, source: source}
-    @clickCallback(@,data) if @clickCallback isnt undefined
-    @board.click(event,source)
-
-  onClick: (clickCallback) ->
-    @clickCallback = clickCallback
+    square.id = id
 
 module.exports = Tile

@@ -9,28 +9,27 @@ Player = require './player.coffee'
 Foe = require './foe.coffee'
 
 $(document).ready ->
-  game = new Game()
+  game = new Game(50, 50)
   keyboard = new Combokeys(document)
-  player = new Player()
+  player = new Player(game)
   game.add_entity(player)
-  game.add_entity(new Foe())
+  game.add_entity(new Foe(game))
 
 
   keyboard.bind 'up', ->
-    player.move_up()
+    player.moveUp()
     game.tick()
 
   keyboard.bind 'down', ->
-    player.move_down()
+    player.moveDown()
     game.tick()
 
   keyboard.bind 'left', ->
-    player.move_left()
+    player.moveLeft()
     game.tick()
 
   keyboard.bind 'right', ->
-    player.move_right()
+    player.moveRight()
     game.tick()
 
-  game.draw()
-
+  game.init()
