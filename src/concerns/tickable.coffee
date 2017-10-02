@@ -1,0 +1,2 @@
+Tickable =
+  tick: ->

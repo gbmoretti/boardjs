@@ -1,6 +1,6 @@
-Board = require('./boardjs/board.coffee')
+import Board from './boardjs/board.coffee'
 
-class Game
+export default class Game
   constructor: (@maxX, @maxY) ->
     @board = new Board(12,@maxY,@maxX)
     @entities = new Array
@@ -33,5 +33,3 @@ class Game
       action.exec(entity) if action.can(entity)
 
     @draw()
-
-module.exports = Game

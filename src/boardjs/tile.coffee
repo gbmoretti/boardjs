@@ -1,4 +1,4 @@
-class Tile
+export default class Tile
   constructor: (@x,@y,@size,@paper,@board,@fill,@stroke) ->
     @border = @size+1
 
@@ -10,5 +10,3 @@ class Tile
       stroke: @stroke
     )
     square.id = id
-
-module.exports = Tile

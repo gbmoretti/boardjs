@@ -1,4 +1,4 @@
-class Piece
+export default class Piece
   constructor: (@x,@y,@color,@paper,@tile,@size) ->
     @element = null
 
@@ -25,5 +25,3 @@ class Piece
     )
 
     @element = piece
-
-module.exports = Piece

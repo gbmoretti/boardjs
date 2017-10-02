@@ -1,16 +1,16 @@
 {
-  "name": "boardjs",
-  "version": "0.0.1",
-  "devDependencies": {
-    "grunt": "latest",
-    "grunt-contrib-coffeeify": "latest",
-    "grunt-contrib-coffee": "latest",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-http-server": "latest"
-  },
   "dependencies": {
-    "jquery-browserify": "^1.8.1",
-    "raphael-browserify": "^2.1.0",
-    "combokeys": "^2.3.0"
+    "combokeys": "^3.0.0",
+    "css-loader": "^0.28.7",
+    "raphael": "^2.2.7",
+    "style-loader": "^0.18.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "coffee-loader": "^0.8.0",
+    "coffeescript": "^2.0.1",
+    "webpack": "^3.6.0"
   }
 }

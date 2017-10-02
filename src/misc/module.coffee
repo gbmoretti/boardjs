@@ -15,5 +15,3 @@ class Module
 
     obj.included?.apply(@)
     this
-
-module.exports = Module

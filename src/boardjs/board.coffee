@@ -1,10 +1,10 @@
-Piece = require './piece.coffee'
-Tile = require './tile.coffee'
-Raphael = require 'raphael-browserify'
+import Piece from './piece.coffee'
+import Tile from './tile.coffee'
+import Raphael from 'raphael'
 
-class Board
+export default class Board
   constructor: (@size,@width,@height = null) ->
-    @height = @heigth || @width
+    @height = @height || @width
 
     paper_width = (@width * @size) + @width
     paper_height = (@height * @size) + @height
@@ -55,5 +55,3 @@ class Board
         obj = o
         break
     obj
-
-module.exports = Board
