@@ -6,6 +6,8 @@ export default class Player
     @pos = new Coord(1,1)
     @color = '#E33'
     @action = null
+    @name = "Player"
+    @hp = 100
 
   draw: ->
 

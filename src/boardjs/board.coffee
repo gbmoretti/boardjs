@@ -9,7 +9,7 @@ export default class Board
     paper_width = (@width * @size) + @width
     paper_height = (@height * @size) + @height
 
-    @paper = Raphael(1, 1, paper_width, paper_height)
+    @paper = Raphael(document.getElementById("canvas"), paper_width, paper_height)
     @pieces = new Array()
     @tiles = new Array()
     @createTiles()

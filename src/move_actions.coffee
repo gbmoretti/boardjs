@@ -3,8 +3,14 @@ import Coord from './coord.coffee'
 class MoveUpAction
   @COST = 100
 
+  constructor: ->
+    @name = "Move Up"
+
   exec: (entity) ->
-    entity.pos = entity.pos.add(new Coord(0, -1))
+    entity.pos = plan(entity)
+
+  plan: (entity) ->
+    entity.pos.add(new Coord(0, -1))
 
   can: (entity) ->
     entity.pos.y > 0
@@ -12,6 +18,9 @@ class MoveUpAction
 
 class MoveDownAction
   @COST = 100
+
+  constructor: ->
+    @name = "Move Down"
 
   exec: (entity) ->
     entity.pos = entity.pos.add(new Coord(0, 1))
@@ -22,6 +31,9 @@ class MoveDownAction
 class MoveRightAction
   @COST = 100
 
+  constructor: ->
+    @name = "Move Right"
+
   exec: (entity) ->
     entity.pos = entity.pos.add(new Coord(1, 0))
 
@@ -31,6 +43,9 @@ class MoveRightAction
 class MoveLeftAction
   @COST = 100
 
+  constructor: ->
+    @name = "Move Left"
+
   exec: (entity) ->
     entity.pos = entity.pos.add(new Coord(-1, 0))
 
@@ -39,6 +54,9 @@ class MoveLeftAction
 
 class StationateAction
   @COST = 0
+
+  constructor: ->
+    @name = "Stationate"
 
   exec: (entity) ->
 

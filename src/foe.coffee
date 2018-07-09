@@ -12,10 +12,13 @@ export default class Foe
     ]
     @hp = attrs.hp or 10
     @speed = attrs.speed or 50
+    @name = attrs.name or 'Unknow'
     @actionPoints = 0
+    @action = new MoveActions.stationate()
 
   tick: ->
     @actionPoints += @speed
+    @actionsPoints = 100 if @actionPoints > 100
 
     possibleMoves = []
     for move in @moves

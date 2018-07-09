@@ -8,16 +8,19 @@ import Player from './player.coffee'
 import Foe from './foe.coffee'
 import Coord from './coord.coffee'
 
+require("./style.css")
+
 document.addEventListener 'DOMContentLoaded', ->
-  game = new Game(50, 50)
+
+  game = new Game(10, 10)
   keyboard = new Combokeys(document)
 
   player = new Player(game)
   game.add_entity(player)
 
   foes = [
-    {hp: 20, speed: 100, pos: new Coord(49,43)},
-    {hp: 80, speed: 30, pos: new Coord(49,33)}
+    {name: 'Scout', hp: 20, speed: 100, pos: new Coord(5,5)},
+    {name: 'Tank', hp: 80, speed: 30, pos: new Coord(9,3)}
   ]
 
   for foe in foes
@@ -28,19 +31,19 @@ document.addEventListener 'DOMContentLoaded', ->
     game.tick()
 
   keyboard.bind 'down', ->
-    player.moveDown()
+    player.moveDown() if player
     game.tick()
 
   keyboard.bind 'left', ->
-    player.moveLeft()
+    player.moveLeft() if player
     game.tick()
 
   keyboard.bind 'right', ->
-    player.moveRight()
+    player.moveRight() if player
     game.tick()
 
   keyboard.bind 'space', ->
-    player.stationate()
+    player.stationate() if player
     game.tick()
 
   game.init()

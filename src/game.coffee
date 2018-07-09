@@ -1,4 +1,5 @@
 import Board from './boardjs/board.coffee'
+import InfoBoard from './info_board.coffee'
 
 export default class Game
   constructor: (@maxX, @maxY) ->
@@ -8,6 +9,7 @@ export default class Game
   init: ->
     @drawEntities()
     @board.draw()
+    @updateInfoBoard()
 
   add_entity: (entity) ->
     @entities.push(entity)
@@ -26,6 +28,7 @@ export default class Game
     for entity in @entities
       entity.tick()
     @resolve()
+    @updateInfoBoard()
 
   resolve: ->
     for entity in @entities
@@ -33,3 +36,7 @@ export default class Game
       action.exec(entity) if action.can(entity)
 
     @draw()
+
+  updateInfoBoard: ->
+    infoBoard = new InfoBoard(@entities)
+    infoBoard.draw()
