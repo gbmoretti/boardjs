@@ -1,25 +1,29 @@
 import lo from 'lodash'
 import Board from './boardjs/board.coffee'
 import InfoBoard from './info_board.coffee'
-
-TERRAIN_COLOR = {
-  'g': '#43b659',
-  'w': '#7a7a79',
-  's': '#000aff'
-}
+import Terrains from './terrains.coffee'
 
 export default class Game
-  constructor: (@maxX, @maxY, tiles) ->
+  constructor: (@maxX, @maxY, customTerrains) ->
+    @terrains = {}
+    for x in [0..@maxX]
+      @terrains[x] = {}
+      for y in [0..@maxY]
+        if customTerrains[x]? and customTerrains[x][y]?
+          @terrains[x][y] = new Terrains[customTerrains[x][y]]
+        else
+          @terrains[x][y] = new Terrains['g']
+
     colorMapping = {}
-    lo.forOwn(tiles, (line, x) ->
-      lo.forOwn(line, (tile, y) ->
+    lo.forOwn(customTerrains, (line, x) =>
+      lo.forOwn(line, (tile, y) =>
         colorMapping[x] ?= {}
-        colorMapping[x][y] = TERRAIN_COLOR[tile]
+        colorMapping[x][y] = @terrains[x][y].color
       )
     )
 
     @board = new Board(12,@maxY,@maxX,{
-      default: TERRAIN_COLOR['g'],
+      default: new Terrains['g']().color,
       customs: colorMapping
     })
 
@@ -52,7 +56,12 @@ export default class Game
   resolve: ->
     for entity in @entities
       action = entity.action
-      action.exec(entity) if action.can(entity)
+      if action.can(entity)
+        futureCoord = action.plan(entity)
+        console.log(futureCoord)
+        terrain = @terrains[futureCoord.x][futureCoord.y]
+        action.applyTerrainModifier(terrain) if terrain?
+        action.exec(entity) if action.can(entity)
 
     @draw()
 

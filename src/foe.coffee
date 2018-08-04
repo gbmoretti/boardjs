@@ -18,7 +18,7 @@ export default class Foe
 
   tick: ->
     @actionPoints += @speed
-    @actionsPoints = 100 if @actionPoints > 100
+    @actionPoints = 100 if @actionPoints > 100
 
     possibleMoves = []
     for move in @moves
