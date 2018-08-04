@@ -2,9 +2,22 @@ import Piece from './piece.coffee'
 import Tile from './tile.coffee'
 import Raphael from 'raphael'
 
+class ColorMapping
+  constructor: (@defaultColor, @others) ->
+
+  getTileColor: (x,y) ->
+    if @others[x]? and @others[x][y]?
+      return @others[x][y]
+
+    return @defaultColor
+
+
 export default class Board
-  constructor: (@size,@width,@height = null) ->
+  constructor: (@size,@width,@height = null, colorMapping) ->
     @height = @height || @width
+    colorMapping ?= {default: '#fcef5e', customs: {}}
+
+    @map = new ColorMapping(colorMapping.default, colorMapping.customs);
 
     paper_width = (@width * @size) + @width
     paper_height = (@height * @size) + @height
@@ -26,21 +39,21 @@ export default class Board
   createTiles: ->
     for x in [0..@width]
       for y in [0..@height]
-        tile = new Tile(x,y,@size,@paper,@,'#fcef5e','#FFF')
+        color = @map.getTileColor(x,y)
+        tile = new Tile(x,y,@size,@paper,@,color,'#FFF')
         @tiles.push tile
 
   drawPieces: ->
-    for peca in @pieces
-      peca.draw()
+    for piece in @pieces
+      piece.draw()
 
   drawTiles: ->
     for tile in @tiles
       tile.draw()
 
-  newPiece: (x,y,cor) ->
+  newPiece: (x,y,color) ->
     if @width >= x && @height >= y
-      tile = @searchTile({x: x, y: y})
-      piece = new Piece(x,y,cor,@paper,tile,@size * 0.3)
+      piece = new Piece(x,y,color,@paper,@size * 0.3)
       @pieces.push piece
 
       return piece

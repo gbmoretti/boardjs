@@ -1,5 +1,5 @@
 export default class Piece
-  constructor: (@x,@y,@color,@paper,@tile,@size) ->
+  constructor: (@x,@y,@color,@paper,@size) ->
     @element = null
 
   clean: ->

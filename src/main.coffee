@@ -10,9 +10,35 @@ import Coord from './coord.coffee'
 
 require("./style.css")
 
+stringMapToTiles = (string) ->
+  # console.log(string)
+  tiles = {}
+  lines = string.split('\n')
+  for line, y in lines
+    columns = line.split('')
+    for tile, x in columns when tile isnt '-'
+      tiles[x] ?= {}
+      tiles[x][y] = tile
+
+  return tiles
+
 document.addEventListener 'DOMContentLoaded', ->
 
-  game = new Game(10, 10)
+  map = """
+---w---ss-
+---w---ss-
+---w--ss--
+-------ss-
+--w----ss-
+--w-----ss
+--------ss
+---w---ss-
+---w--ss--
+---w---ss-
+  """
+  tiles = stringMapToTiles(map)
+
+  game = new Game(10, 10, tiles)
   keyboard = new Combokeys(document)
 
   player = new Player(game)

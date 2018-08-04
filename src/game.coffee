@@ -1,9 +1,28 @@
+import lo from 'lodash'
 import Board from './boardjs/board.coffee'
 import InfoBoard from './info_board.coffee'
 
+TERRAIN_COLOR = {
+  'g': '#43b659',
+  'w': '#7a7a79',
+  's': '#000aff'
+}
+
 export default class Game
-  constructor: (@maxX, @maxY) ->
-    @board = new Board(12,@maxY,@maxX)
+  constructor: (@maxX, @maxY, tiles) ->
+    colorMapping = {}
+    lo.forOwn(tiles, (line, x) ->
+      lo.forOwn(line, (tile, y) ->
+        colorMapping[x] ?= {}
+        colorMapping[x][y] = TERRAIN_COLOR[tile]
+      )
+    )
+
+    @board = new Board(12,@maxY,@maxX,{
+      default: TERRAIN_COLOR['g'],
+      customs: colorMapping
+    })
+
     @entities = new Array
 
   init: ->

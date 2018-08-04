@@ -8,7 +8,6 @@ export default class InfoBoard
     @boardElement.innerHTML = "<h1>Status</h1>"
 
     for entity in @entities
-      console.log entity.action.name
       @boardElement.innerHTML += Mustache.render(@entityStatusTemplate(), entity)
 
   entityStatusTemplate: ->
