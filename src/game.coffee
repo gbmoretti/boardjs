@@ -1,32 +1,12 @@
-import lo from 'lodash'
 import Board from './boardjs/board.coffee'
 import InfoBoard from './info_board.coffee'
 import Terrains from './terrains.coffee'
+import TerrainMap from './terrain_map.coffee'
 
 export default class Game
   constructor: (@maxX, @maxY, customTerrains) ->
-    @terrains = {}
-    for x in [0..@maxX]
-      @terrains[x] = {}
-      for y in [0..@maxY]
-        if customTerrains[x]? and customTerrains[x][y]?
-          @terrains[x][y] = new Terrains[customTerrains[x][y]]
-        else
-          @terrains[x][y] = new Terrains['g']
-
-    colorMapping = {}
-    lo.forOwn(customTerrains, (line, x) =>
-      lo.forOwn(line, (tile, y) =>
-        colorMapping[x] ?= {}
-        colorMapping[x][y] = @terrains[x][y].color
-      )
-    )
-
-    @board = new Board(12,@maxY,@maxX,{
-      default: new Terrains['g']().color,
-      customs: colorMapping
-    })
-
+    @terrains = new TerrainMap(customTerrains, @maxX, @maxY)
+    @board = new Board(12,@maxY,@maxX,@terrains.toTileMap())
     @entities = new Array
 
   init: ->
@@ -58,8 +38,7 @@ export default class Game
       action = entity.action
       if action.can(entity)
         futureCoord = action.plan(entity)
-        console.log(futureCoord)
-        terrain = @terrains[futureCoord.x][futureCoord.y]
+        terrain = @terrains.get(futureCoord)
         action.applyTerrainModifier(terrain) if terrain?
         action.exec(entity) if action.can(entity)
 

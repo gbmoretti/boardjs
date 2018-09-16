@@ -1,11 +1,18 @@
 import Coord from './coord.coffee'
 
-class MoveUpAction
+class Move
+  constructor: ->
+    @able = true
+
+  applyTerrainModifier: (terrain) ->
+    @able = false unless terrain.passable
+
+class MoveUpAction extends Move
   @COST = 100
 
   constructor: ->
+    super()
     @name = "Move Up"
-    @able = true
 
   exec: (entity) ->
     entity.pos = @plan(entity)
@@ -16,15 +23,13 @@ class MoveUpAction
   can: (entity) ->
     entity.pos.y > 0 && @able
 
-  applyTerrainModifier: (terrain) ->
-    @able = false unless terrain.passable
 
-class MoveDownAction
+class MoveDownAction extends Move
   @COST = 100
 
   constructor: ->
+    super()
     @name = "Move Down"
-    @able = true
 
   exec: (entity) ->
     entity.pos = @plan(entity)
@@ -35,15 +40,13 @@ class MoveDownAction
   can: (entity) ->
     entity.pos.y < (entity.game.maxY - 1) && @able
 
-  applyTerrainModifier: (terrain) ->
-    @able = false unless terrain.passable
 
-class MoveRightAction
+class MoveRightAction extends Move
   @COST = 100
 
   constructor: ->
+    super()
     @name = "Move Right"
-    @able = true
 
   exec: (entity) ->
     entity.pos = @plan(entity)
@@ -54,15 +57,13 @@ class MoveRightAction
   can: (entity) ->
     entity.pos.x < (entity.game.maxX - 1) && @able
 
-  applyTerrainModifier: (terrain) ->
-    @able = false unless terrain.passable
 
-class MoveLeftAction
+class MoveLeftAction extends Move
   @COST = 100
 
   constructor: ->
+    super()
     @name = "Move Left"
-    @able = true
 
   exec: (entity) ->
     entity.pos = @plan(entity)
@@ -73,13 +74,12 @@ class MoveLeftAction
   can: (entity) ->
     entity.pos.x > 0 && @able
 
-  applyTerrainModifier: (terrain) ->
-    @able = false unless terrain.passable
 
-class StationateAction
+class StationateAction extends Move
   @COST = 0
 
   constructor: ->
+    super()
     @name = "Stationate"
 
   exec: (entity) ->

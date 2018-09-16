@@ -13,11 +13,10 @@ class ColorMapping
 
 
 export default class Board
-  constructor: (@size,@width,@height = null, colorMapping) ->
+  constructor: (@size,@width,@height = null, tileMap) ->
     @height = @height || @width
-    colorMapping ?= {default: '#fcef5e', customs: {}}
 
-    @map = new ColorMapping(colorMapping.default, colorMapping.customs);
+    @map = new ColorMapping('#2b2b2b', tileMap);
 
     paper_width = (@width * @size) + @width
     paper_height = (@height * @size) + @height

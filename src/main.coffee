@@ -25,16 +25,16 @@ stringMapToTiles = (string) ->
 document.addEventListener 'DOMContentLoaded', ->
 
   map = """
----w---ss-
----w---ss-
----w--ss--
--------ss-
---w----ss-
---w-----ss
---------ss
----w---ss-
----w--ss--
----w---ss-
+gggwgggssg
+gggwgggssg
+gggwggssgg
+gggggggssg
+ggwggggssg
+ggwgggggss
+ggggggggss
+gggwgggssg
+gggwggssgg
+gggwgggssg
   """
   tiles = stringMapToTiles(map)
 
