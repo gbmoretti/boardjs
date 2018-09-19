@@ -1,23 +1,29 @@
-class Grass
-  constructor: () ->
-    @color = '#43b659'
-    @mov_mod = 1
-    @passable = true
+class Grass {
+  constructor() {
+    this.color = '#43b659';
+    this.mov_mod = 1;
+    this.passable = true;
+  }
+}
 
-class Water
-  constructor: () ->
-    @color = '#000aff'
-    @mov_mod = 1.5
-    @passable = true
+class Water {
+  constructor() {
+    this.color = '#000aff';
+    this.mov_mod = 1.5;
+    this.passable = true;
+  }
+}
 
-class Wall
-  constructor: () ->
-    @color = '#7a7a79'
-    @mov_mod = 1
-    @passable = false
+class Wall {
+  constructor() {
+    this.color = '#7a7a79';
+    this.mov_mod = 1;
+    this.passable = false;
+  }
+}
 
-export default {
+export default ({
   'g': Grass,
   'w': Wall,
   's': Water
-}
+});

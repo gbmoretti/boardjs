@@ -1,49 +1,76 @@
-import Board from './boardjs/board.coffee'
-import InfoBoard from './info_board.coffee'
-import Terrains from './terrains.coffee'
-import TerrainMap from './terrain_map.coffee'
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import Board from './boardjs/board.coffee';
+import InfoBoard from './info_board.coffee';
+import Terrains from './terrains.coffee';
+import TerrainMap from './terrain_map.coffee';
 
-export default class Game
-  constructor: (@maxX, @maxY, customTerrains) ->
-    @terrains = new TerrainMap(customTerrains, @maxX, @maxY)
-    @board = new Board(12,@maxY,@maxX,@terrains.toTileMap())
-    @entities = new Array
+export default class Game {
+  constructor(maxX, maxY, customTerrains) {
+    this.maxX = maxX;
+    this.maxY = maxY;
+    this.terrains = new TerrainMap(customTerrains, this.maxX, this.maxY);
+    this.board = new Board(12,this.maxY,this.maxX,this.terrains.toTileMap());
+    this.entities = new Array;
+  }
 
-  init: ->
-    @drawEntities()
-    @board.draw()
-    @updateInfoBoard()
+  init() {
+    this.drawEntities();
+    this.board.draw();
+    return this.updateInfoBoard();
+  }
 
-  add_entity: (entity) ->
-    @entities.push(entity)
+  add_entity(entity) {
+    return this.entities.push(entity);
+  }
 
-  draw: ->
-    @board.clean()
-    @drawEntities()
-    @board.drawPieces()
+  draw() {
+    this.board.clean();
+    this.drawEntities();
+    return this.board.drawPieces();
+  }
 
-  drawEntities: ->
-    for entity in @entities
-      entity.draw()
-      @board.newPiece(entity.pos.x,entity.pos.y,entity.color)
+  drawEntities() {
+    return (() => {
+      const result = [];
+      for (let entity of Array.from(this.entities)) {
+        entity.draw();
+        result.push(this.board.newPiece(entity.pos.x,entity.pos.y,entity.color));
+      }
+      return result;
+    })();
+  }
 
-  tick: ->
-    for entity in @entities
-      entity.tick()
-    @resolve()
-    @updateInfoBoard()
+  tick() {
+    for (let entity of Array.from(this.entities)) {
+      entity.tick();
+    }
+    this.resolve();
+    return this.updateInfoBoard();
+  }
 
-  resolve: ->
-    for entity in @entities
-      action = entity.action
-      if action.can(entity)
-        futureCoord = action.plan(entity)
-        terrain = @terrains.get(futureCoord)
-        action.applyTerrainModifier(terrain) if terrain?
-        action.exec(entity) if action.can(entity)
+  resolve() {
+    for (let entity of Array.from(this.entities)) {
+      const { action } = entity;
+      if (action.can(entity)) {
+        const futureCoord = action.plan(entity);
+        const terrain = this.terrains.get(futureCoord);
+        if (terrain != null) { action.applyTerrainModifier(terrain); }
+        if (action.can(entity)) { action.exec(entity); }
+      }
+    }
 
-    @draw()
+    return this.draw();
+  }
 
-  updateInfoBoard: ->
-    infoBoard = new InfoBoard(@entities)
-    infoBoard.draw()
+  updateInfoBoard() {
+    const infoBoard = new InfoBoard(this.entities);
+    return infoBoard.draw();
+  }
+}

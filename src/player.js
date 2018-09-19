@@ -1,29 +1,42 @@
-import Coord from './coord'
-import MoveActions from './move_actions.coffee'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import Coord from './coord';
+import MoveActions from './move_actions.coffee';
 
-export default class Player
-  constructor: (@game) ->
-    @pos = new Coord(1,1)
-    @color = '#E33'
-    @action = null
-    @name = "Player"
-    @hp = 100
+export default class Player {
+  constructor(game) {
+    this.game = game;
+    this.pos = new Coord(1,1);
+    this.color = '#E33';
+    this.action = null;
+    this.name = "Player";
+    this.hp = 100;
+  }
 
-  draw: ->
+  draw() {}
 
-  tick: ->
+  tick() {}
 
-  moveUp: ->
-    @action = new MoveActions.moveUp()
+  moveUp() {
+    return this.action = new MoveActions.moveUp();
+  }
 
-  moveDown: ->
-    @action = new MoveActions.moveDown()
+  moveDown() {
+    return this.action = new MoveActions.moveDown();
+  }
 
-  moveRight: ->
-    @action = new MoveActions.moveRight()
+  moveRight() {
+    return this.action = new MoveActions.moveRight();
+  }
 
-  moveLeft: ->
-    @action = new MoveActions.moveLeft()
+  moveLeft() {
+    return this.action = new MoveActions.moveLeft();
+  }
 
-  stationate: ->
-    @action = new MoveActions.stationate()
+  stationate() {
+    return this.action = new MoveActions.stationate();
+  }
+}

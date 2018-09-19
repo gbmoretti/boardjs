@@ -1,2 +1,2 @@
-Tickable =
-  tick: ->
+const Tickable =
+  {tick() {}};

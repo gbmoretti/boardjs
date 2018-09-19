@@ -1,101 +1,149 @@
-import Coord from './coord'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import Coord from './coord';
 
-class Move
-  constructor: ->
-    @able = true
+class Move {
+  constructor() {
+    this.able = true;
+  }
 
-  applyTerrainModifier: (terrain) ->
-    @able = false unless terrain.passable
+  applyTerrainModifier(terrain) {
+    if (!terrain.passable) { return this.able = false; }
+  }
+}
 
-class MoveUpAction extends Move
-  @COST = 100
+class MoveUpAction extends Move {
+  static initClass() {
+    this.COST = 100;
+  }
 
-  constructor: ->
-    super()
-    @name = "Move Up"
+  constructor() {
+    super();
+    this.name = "Move Up";
+  }
 
-  exec: (entity) ->
-    entity.pos = @plan(entity)
+  exec(entity) {
+    return entity.pos = this.plan(entity);
+  }
 
-  plan: (entity) ->
-    entity.pos.add(new Coord(0, -1))
+  plan(entity) {
+    return entity.pos.add(new Coord(0, -1));
+  }
 
-  can: (entity) ->
-    entity.pos.y > 0 && @able
-
-
-class MoveDownAction extends Move
-  @COST = 100
-
-  constructor: ->
-    super()
-    @name = "Move Down"
-
-  exec: (entity) ->
-    entity.pos = @plan(entity)
-
-  plan: (entity) ->
-    entity.pos.add(new Coord(0, 1))
-
-  can: (entity) ->
-    entity.pos.y < (entity.game.maxY - 1) && @able
-
-
-class MoveRightAction extends Move
-  @COST = 100
-
-  constructor: ->
-    super()
-    @name = "Move Right"
-
-  exec: (entity) ->
-    entity.pos = @plan(entity)
-
-  plan: (entity) ->
-    entity.pos.add(new Coord(1, 0))
-
-  can: (entity) ->
-    entity.pos.x < (entity.game.maxX - 1) && @able
+  can(entity) {
+    return (entity.pos.y > 0) && this.able;
+  }
+}
+MoveUpAction.initClass();
 
 
-class MoveLeftAction extends Move
-  @COST = 100
+class MoveDownAction extends Move {
+  static initClass() {
+    this.COST = 100;
+  }
 
-  constructor: ->
-    super()
-    @name = "Move Left"
+  constructor() {
+    super();
+    this.name = "Move Down";
+  }
 
-  exec: (entity) ->
-    entity.pos = @plan(entity)
+  exec(entity) {
+    return entity.pos = this.plan(entity);
+  }
 
-  plan: (entity) ->
-    entity.pos.add(new Coord(-1, 0))
+  plan(entity) {
+    return entity.pos.add(new Coord(0, 1));
+  }
 
-  can: (entity) ->
-    entity.pos.x > 0 && @able
+  can(entity) {
+    return (entity.pos.y < (entity.game.maxY - 1)) && this.able;
+  }
+}
+MoveDownAction.initClass();
 
 
-class StationateAction extends Move
-  @COST = 0
+class MoveRightAction extends Move {
+  static initClass() {
+    this.COST = 100;
+  }
 
-  constructor: ->
-    super()
-    @name = "Stationate"
+  constructor() {
+    super();
+    this.name = "Move Right";
+  }
 
-  exec: (entity) ->
+  exec(entity) {
+    return entity.pos = this.plan(entity);
+  }
 
-  can: (entity) ->
-    true
+  plan(entity) {
+    return entity.pos.add(new Coord(1, 0));
+  }
 
-  plan: (entity) ->
-    entity.pos
+  can(entity) {
+    return (entity.pos.x < (entity.game.maxX - 1)) && this.able;
+  }
+}
+MoveRightAction.initClass();
 
-  applyTerrainModifier: () ->
 
-export default {
+class MoveLeftAction extends Move {
+  static initClass() {
+    this.COST = 100;
+  }
+
+  constructor() {
+    super();
+    this.name = "Move Left";
+  }
+
+  exec(entity) {
+    return entity.pos = this.plan(entity);
+  }
+
+  plan(entity) {
+    return entity.pos.add(new Coord(-1, 0));
+  }
+
+  can(entity) {
+    return (entity.pos.x > 0) && this.able;
+  }
+}
+MoveLeftAction.initClass();
+
+
+class StationateAction extends Move {
+  static initClass() {
+    this.COST = 0;
+  }
+
+  constructor() {
+    super();
+    this.name = "Stationate";
+  }
+
+  exec(entity) {}
+
+  can(entity) {
+    return true;
+  }
+
+  plan(entity) {
+    return entity.pos;
+  }
+
+  applyTerrainModifier() {}
+}
+StationateAction.initClass();
+
+export default ({
   moveUp: MoveUpAction,
   moveDown: MoveDownAction,
   moveRight: MoveRightAction,
   moveLeft: MoveLeftAction,
   stationate: StationateAction
-}
+});

@@ -1,32 +1,44 @@
-import MoveActions from './move_actions.coffee'
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import MoveActions from './move_actions.coffee';
 
-export default class Foe
-  constructor: (@game, @pos, attrs) ->
-    @color = '#3E3'
-    @moves = [
+export default class Foe {
+  constructor(game, pos, attrs) {
+    this.game = game;
+    this.pos = pos;
+    this.color = '#3E3';
+    this.moves = [
       MoveActions.moveUp,
       MoveActions.moveDown,
       MoveActions.moveRight,
       MoveActions.moveLeft,
       MoveActions.stationate
-    ]
-    @hp = attrs.hp or 10
-    @speed = attrs.speed or 50
-    @name = attrs.name or 'Unknow'
-    @actionPoints = 0
-    @action = new MoveActions.stationate()
+    ];
+    this.hp = attrs.hp || 10;
+    this.speed = attrs.speed || 50;
+    this.name = attrs.name || 'Unknow';
+    this.actionPoints = 0;
+    this.action = new MoveActions.stationate();
+  }
 
-  tick: ->
-    @actionPoints += @speed
-    @actionPoints = 100 if @actionPoints > 100
+  tick() {
+    this.actionPoints += this.speed;
+    if (this.actionPoints > 100) { this.actionPoints = 100; }
 
-    possibleMoves = []
-    for move in @moves
-      possibleMoves.push(move) if move.COST <= @actionPoints
+    const possibleMoves = [];
+    for (let move of Array.from(this.moves)) {
+      if (move.COST <= this.actionPoints) { possibleMoves.push(move); }
+    }
 
-    randAction = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
+    const randAction = possibleMoves[Math.floor(Math.random()*possibleMoves.length)];
 
-    @action = new randAction()
-    @actionPoints -= randAction.COST
+    this.action = new randAction();
+    return this.actionPoints -= randAction.COST;
+  }
 
-  draw: ->
+  draw() {}
+}

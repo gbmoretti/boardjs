@@ -1,69 +1,116 @@
-import Piece from './piece.coffee'
-import Tile from './tile.coffee'
-import Raphael from 'raphael'
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS202: Simplify dynamic range loops
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import Piece from './piece.coffee';
+import Tile from './tile.coffee';
+import Raphael from 'raphael';
 
-class ColorMapping
-  constructor: (@defaultColor, @others) ->
+class ColorMapping {
+  constructor(defaultColor, others) {
+    this.defaultColor = defaultColor;
+    this.others = others;
+  }
 
-  getTileColor: (x,y) ->
-    if @others[x]? and @others[x][y]?
-      return @others[x][y]
+  getTileColor(x,y) {
+    if ((this.others[x] != null) && (this.others[x][y] != null)) {
+      return this.others[x][y];
+    }
 
-    return @defaultColor
+    return this.defaultColor;
+  }
+}
 
 
-export default class Board
-  constructor: (@size,@width,@height = null, tileMap) ->
-    @height = @height || @width
+export default class Board {
+  constructor(size,width,height = null, tileMap) {
+    this.size = size;
+    this.width = width;
+    this.height = height;
+    this.height = this.height || this.width;
 
-    @map = new ColorMapping('#2b2b2b', tileMap);
+    this.map = new ColorMapping('#2b2b2b', tileMap);
 
-    paper_width = (@width * @size) + @width
-    paper_height = (@height * @size) + @height
+    const paper_width = (this.width * this.size) + this.width;
+    const paper_height = (this.height * this.size) + this.height;
 
-    @paper = Raphael(document.getElementById("canvas"), paper_width, paper_height)
-    @pieces = new Array()
-    @tiles = new Array()
-    @createTiles()
+    this.paper = Raphael(document.getElementById("canvas"), paper_width, paper_height);
+    this.pieces = new Array();
+    this.tiles = new Array();
+    this.createTiles();
+  }
 
-  clean: ->
-    for piece in @pieces
-      piece.clean()
-    @pieces = new Array()
+  clean() {
+    for (let piece of Array.from(this.pieces)) {
+      piece.clean();
+    }
+    return this.pieces = new Array();
+  }
 
-  draw: ->
-    @drawTiles()
-    @drawPieces()
+  draw() {
+    this.drawTiles();
+    return this.drawPieces();
+  }
 
-  createTiles: ->
-    for x in [0..@width]
-      for y in [0..@height]
-        color = @map.getTileColor(x,y)
-        tile = new Tile(x,y,@size,@paper,@,color,'#FFF')
-        @tiles.push tile
+  createTiles() {
+    return __range__(0, this.width, true).map((x) =>
+      (() => {
+        const result = [];
+        for (let y = 0, end = this.height, asc = 0 <= end; asc ? y <= end : y >= end; asc ? y++ : y--) {
+          const color = this.map.getTileColor(x,y);
+          const tile = new Tile(x,y,this.size,this.paper,this,color,'#FFF');
+          result.push(this.tiles.push(tile));
+        }
+        return result;
+      })());
+  }
 
-  drawPieces: ->
-    for piece in @pieces
-      piece.draw()
+  drawPieces() {
+    return Array.from(this.pieces).map((piece) =>
+      piece.draw());
+  }
 
-  drawTiles: ->
-    for tile in @tiles
-      tile.draw()
+  drawTiles() {
+    return Array.from(this.tiles).map((tile) =>
+      tile.draw());
+  }
 
-  newPiece: (x,y,color) ->
-    if @width >= x && @height >= y
-      piece = new Piece(x,y,color,@paper,@size * 0.3)
-      @pieces.push piece
+  newPiece(x,y,color) {
+    if ((this.width >= x) && (this.height >= y)) {
+      const piece = new Piece(x,y,color,this.paper,this.size * 0.3);
+      this.pieces.push(piece);
 
-      return piece
+      return piece;
+    }
+  }
 
-  searchTile: (coord) ->
-    @searchByCoord(coord,@tiles)
+  searchTile(coord) {
+    return this.searchByCoord(coord,this.tiles);
+  }
 
-  searchByCoord: (coord,array) ->
-    obj = null
-    for o in array
-      if o.x == coord.x && o.y == coord.y
-        obj = o
-        break
-    obj
+  searchByCoord(coord,array) {
+    let obj = null;
+    for (let o of Array.from(array)) {
+      if ((o.x === coord.x) && (o.y === coord.y)) {
+        obj = o;
+        break;
+      }
+    }
+    return obj;
+  }
+}
+
+function __range__(left, right, inclusive) {
+  let range = [];
+  let ascending = left < right;
+  let end = !inclusive ? right : ascending ? right + 1 : right - 1;
+  for (let i = left; ascending ? i < end : i > end; ascending ? i++ : i--) {
+    range.push(i);
+  }
+  return range;
+}

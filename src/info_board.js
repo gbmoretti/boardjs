@@ -1,14 +1,25 @@
-import Mustache from 'mustache'
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import Mustache from 'mustache';
 
-export default class InfoBoard
-  constructor: (@entities) ->
-    @boardElement = document.getElementById("infoboard")
+export default class InfoBoard {
+  constructor(entities) {
+    this.entities = entities;
+    this.boardElement = document.getElementById("infoboard");
+  }
 
-  draw: ->
-    @boardElement.innerHTML = "<h1>Status</h1>"
+  draw() {
+    this.boardElement.innerHTML = "<h1>Status</h1>";
 
-    for entity in @entities
-      @boardElement.innerHTML += Mustache.render(@entityStatusTemplate(), entity)
+    return Array.from(this.entities).map((entity) =>
+      (this.boardElement.innerHTML += Mustache.render(this.entityStatusTemplate(), entity)));
+  }
 
-  entityStatusTemplate: ->
-    "<p>{{name}} - {{hp}} - {{actionPoints}} (action: {{action.name}})</p>"
+  entityStatusTemplate() {
+    return "<p>{{name}} - {{hp}} - {{actionPoints}} (action: {{action.name}})</p>";
+  }
+}

@@ -1,27 +1,42 @@
-export default class Piece
-  constructor: (@x,@y,@color,@paper,@size) ->
-    @element = null
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+export default class Piece {
+  constructor(x,y,color,paper,size) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.paper = paper;
+    this.size = size;
+    this.element = null;
+  }
 
-  clean: ->
-    @element.remove()
+  clean() {
+    return this.element.remove();
+  }
 
-  draw: ->
-    id = @x << 16 & 0xffff0000 | @y & 0x0000ffff #formula para pegar o id
-    square = @paper.getById(id)
+  draw() {
+    const id = ((this.x << 16) & 0xffff0000) | (this.y & 0x0000ffff); //formula para pegar o id
+    const square = this.paper.getById(id);
 
-    unless square
-      console.log "Cannot find #{id}"
-      return false
+    if (!square) {
+      console.log(`Cannot find ${id}`);
+      return false;
+    }
 
-    bbox = square.getBBox()
-    x = bbox.x + (bbox.width/2)
-    y = bbox.y + (bbox.height/2)
+    const bbox = square.getBBox();
+    const x = bbox.x + (bbox.width/2);
+    const y = bbox.y + (bbox.height/2);
 
-    piece = @paper.circle(x,y,@size)
+    const piece = this.paper.circle(x,y,this.size);
 
-    piece.attr(
-      fill: @color
+    piece.attr({
+      fill: this.color,
       stroke: "#000"
-    )
+    });
 
-    @element = piece
+    return this.element = piece;
+  }
+}

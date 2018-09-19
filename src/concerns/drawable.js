@@ -1,2 +1,2 @@
-Drawable =
-  draw: ->
+const Drawable =
+  {draw() {}};
