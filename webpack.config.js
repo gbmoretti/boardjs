@@ -14,13 +14,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.coffee$/,
-        use: [
-          { loader: 'coffee-loader', options: {sourceMaps: true} }
-        ],
-      },
-
-      {
         test: /\.css$/, loader: "style-loader!css-loader"
       }
     ],
