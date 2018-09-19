@@ -1,4 +1,4 @@
-import Coord from './coord.coffee'
+import Coord from './coord'
 import MoveActions from './move_actions.coffee'
 
 export default class Player

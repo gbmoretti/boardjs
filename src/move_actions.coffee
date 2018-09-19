@@ -1,4 +1,4 @@
-import Coord from './coord.coffee'
+import Coord from './coord'
 
 class Move
   constructor: ->

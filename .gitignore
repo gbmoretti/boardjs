@@ -1,5 +1,4 @@
 *~
-*.js
 log/*
 tmp/*
 node_modules/
