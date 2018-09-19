@@ -1,10 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 //libs/misc
 import Module from './misc/module';
 import Combokeys from 'combokeys';
@@ -63,34 +56,34 @@ gggwgggssg\
     {name: 'Tank', hp: 80, speed: 30, pos: new Coord(9,3)}
   ];
 
-  for (let foe of Array.from(foes)) {
+  for (let foe of foes) {
     game.add_entity(new Foe(game, foe.pos, foe));
   }
 
   keyboard.bind('up', function() {
     player.moveUp();
-    return game.tick();
+    game.tick();
   });
 
   keyboard.bind('down', function() {
     if (player) { player.moveDown(); }
-    return game.tick();
+    game.tick();
   });
 
   keyboard.bind('left', function() {
     if (player) { player.moveLeft(); }
-    return game.tick();
+    game.tick();
   });
 
   keyboard.bind('right', function() {
     if (player) { player.moveRight(); }
-    return game.tick();
+    game.tick();
   });
 
   keyboard.bind('space', function() {
     if (player) { player.stationate(); }
-    return game.tick();
+    game.tick();
   });
 
-  return game.init();
+  game.init();
 });

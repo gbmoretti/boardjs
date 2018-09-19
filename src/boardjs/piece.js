@@ -1,10 +1,3 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 export default class Piece {
   constructor(x,y,color,paper,size) {
     this.x = x;
@@ -16,7 +9,7 @@ export default class Piece {
   }
 
   clean() {
-    return this.element.remove();
+    this.element.remove();
   }
 
   draw() {
@@ -39,6 +32,6 @@ export default class Piece {
       stroke: "#000"
     });
 
-    return this.element = piece;
+    this.element = piece;
   }
 }

@@ -1,10 +1,3 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 export default class Tile {
   constructor(x,y,size,paper,board,fill,stroke) {
     this.x = x;
@@ -24,6 +17,6 @@ export default class Tile {
       fill: this.fill,
       stroke: this.stroke
     });
-    return square.id = id;
+    square.id = id;
   }
 }

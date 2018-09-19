@@ -1,14 +1,3 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS202: Simplify dynamic range loops
- * DS205: Consider reworking code to avoid use of IIFEs
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import Piece from './piece';
 import Tile from './tile';
 import Raphael from 'raphael';
@@ -48,37 +37,34 @@ export default class Board {
   }
 
   clean() {
-    for (let piece of Array.from(this.pieces)) {
+    for (let piece of this.pieces) {
       piece.clean();
     }
-    return this.pieces = new Array();
+    this.pieces = new Array();
   }
 
   draw() {
     this.drawTiles();
-    return this.drawPieces();
+    this.drawPieces();
   }
 
   createTiles() {
-    return __range__(0, this.width, true).map((x) =>
-      (() => {
-        const result = [];
-        for (let y = 0, end = this.height, asc = 0 <= end; asc ? y <= end : y >= end; asc ? y++ : y--) {
-          const color = this.map.getTileColor(x,y);
-          const tile = new Tile(x,y,this.size,this.paper,this,color,'#FFF');
-          result.push(this.tiles.push(tile));
-        }
-        return result;
-      })());
+    for(let x = 0; x <= this.width; x++) {
+      for(let y = 0; y <= this.height; y++) {
+        const color = this.map.getTileColor(x,y);
+        const tile = new Tile(x,y,this.size,this.paper,this,color,'#FFF');
+        this.tiles.push(tile);
+      }
+    }
   }
 
   drawPieces() {
-    return Array.from(this.pieces).map((piece) =>
+    this.pieces.map((piece) =>
       piece.draw());
   }
 
   drawTiles() {
-    return Array.from(this.tiles).map((tile) =>
+    this.tiles.map((tile) =>
       tile.draw());
   }
 
@@ -97,7 +83,7 @@ export default class Board {
 
   searchByCoord(coord,array) {
     let obj = null;
-    for (let o of Array.from(array)) {
+    for (let o of array) {
       if ((o.x === coord.x) && (o.y === coord.y)) {
         obj = o;
         break;
@@ -105,14 +91,4 @@ export default class Board {
     }
     return obj;
   }
-}
-
-function __range__(left, right, inclusive) {
-  let range = [];
-  let ascending = left < right;
-  let end = !inclusive ? right : ascending ? right + 1 : right - 1;
-  for (let i = left; ascending ? i < end : i > end; ascending ? i++ : i--) {
-    range.push(i);
-  }
-  return range;
 }

@@ -1,10 +1,3 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import Coord from './coord';
 import MoveActions from './move_actions';
 
@@ -23,22 +16,22 @@ export default class Player {
   tick() {}
 
   moveUp() {
-    return this.action = new MoveActions.moveUp();
+    this.action = new MoveActions.moveUp();
   }
 
   moveDown() {
-    return this.action = new MoveActions.moveDown();
+    this.action = new MoveActions.moveDown();
   }
 
   moveRight() {
-    return this.action = new MoveActions.moveRight();
+    this.action = new MoveActions.moveRight();
   }
 
   moveLeft() {
-    return this.action = new MoveActions.moveLeft();
+    this.action = new MoveActions.moveLeft();
   }
 
   stationate() {
-    return this.action = new MoveActions.stationate();
+    this.action = new MoveActions.stationate();
   }
 }
