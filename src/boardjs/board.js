@@ -9,8 +9,8 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Piece from './piece.coffee';
-import Tile from './tile.coffee';
+import Piece from './piece';
+import Tile from './tile';
 import Raphael from 'raphael';
 
 class ColorMapping {

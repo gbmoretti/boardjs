@@ -6,13 +6,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 //libs/misc
-import Module from './misc/module.coffee';
+import Module from './misc/module';
 import Combokeys from 'combokeys';
 
 //game
-import Game from './game.coffee';
-import Player from './player.coffee';
-import Foe from './foe.coffee';
+import Game from './game';
+import Player from './player';
+import Foe from './foe';
 import Coord from './coord';
 
 require("./style.css");

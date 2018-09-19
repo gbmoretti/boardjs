@@ -7,7 +7,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import lo from 'lodash';
-import Terrains from './terrains.coffee';
+import Terrains from './terrains';
 
 export default class TerrainMap {
   constructor(customTerrains, maxX, maxY) {

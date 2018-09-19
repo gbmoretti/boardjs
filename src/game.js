@@ -8,10 +8,10 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Board from './boardjs/board.coffee';
-import InfoBoard from './info_board.coffee';
-import Terrains from './terrains.coffee';
-import TerrainMap from './terrain_map.coffee';
+import Board from './boardjs/board';
+import InfoBoard from './info_board';
+import Terrains from './terrains';
+import TerrainMap from './terrain_map';
 
 export default class Game {
   constructor(maxX, maxY, customTerrains) {

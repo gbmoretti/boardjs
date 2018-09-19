@@ -6,7 +6,7 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import MoveActions from './move_actions.coffee';
+import MoveActions from './move_actions';
 
 export default class Foe {
   constructor(game, pos, attrs) {
